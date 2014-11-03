@@ -1,0 +1,26 @@
+{
+  "name" : "SandwichBar",
+  "version" : "1.0.1",
+  "description" : "MessageMessageMessageMessageMessageMessageMessage'",
+  "background" : {
+    "scripts": ["background.js"]
+  },
+  "permissions" : [ "infobars" ,"tabs"],
+  "icons" : {
+    "16" : "Qzone-16.png",
+    "48" : "Qzone-48.png",
+    "128" : "Qzone-128.png"
+  },
+  "content_scripts" : [
+    {
+      "matches" : [ 
+         "*://*.qzone.qq.com/*"
+         //"https://*/*"
+         ],
+      "js" : [ "contentscript.js" ,"jquery.min.js","jquery.json-2.4.min.js","process.js"],
+      "run_at" : "document_end",
+       "all_frames" : true
+    }
+  ],
+  "manifest_version": 2
+}
