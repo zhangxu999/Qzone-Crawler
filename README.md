@@ -10,6 +10,8 @@ Qzone-Crawler
 使用JQuery,Jquery-json，前端插件.
 
 **使用效果**：
+
+-----------------------------------------
 ![Alt text](http://ncwugirl.qiniudn.com/qzone-crawl1.png)
 ![Alt text](http://ncwugirl.qiniudn.com/qzone-crawl2.png)
 
