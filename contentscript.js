@@ -56,15 +56,16 @@ function onMessage (Message) {
 	 };
 	// body...
 }
-/* 用于上传数据的暂时用不到
-function upload (argument) {
+// 用于上传数据的暂时用不到
+function upload () {
 //	console.log("@@@@@@@@in upLoad");
-	var Json=$.toJSON(shuo);
+	//var Json=$.toJSON(shuo);
+    Json='ssssssswww';
 	$.ajax({
-    url: "http://127.0.0.1:8000/fetchQzone/search",
+    url: "http://127.0.0.1:8000/fetchQzone/search/",
  
     // the name of the callback parameter, as specified by the YQL service
- 	jsonp:callback,
+ 	//jsonp:callbac,
     // tell jQuery we're expecting JSONP
     dataType: "jsonp",
  	type:"POST",
@@ -90,4 +91,30 @@ function upload (argument) {
 });
 	// body...
 }
-*/
+function  callbac (argument) {
+    // body...
+    console.log('callbac.had callback')
+}
+
+
+function uploadajax () {
+a=$.toJSON(shuo)
+b=encodeURIComponent(a)
+    var xmlhttp=new XMLHttpRequest();
+    // body...
+ 
+    xmlhttp.open("POST","http://ncwugirl.duapp.com/fetchQzone/search/",true);
+   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    xmlhttp.setRequestHeader("Access-Control-Allow-Origin","*");
+    xmlhttp.send('shuo='+b);
+    
+    xmlhttp.onreadystatechange=function  () {
+        if (xmlhttp.readyState===4 && xmlhttp.status==200) {
+            //result.innerHTML=xmlhttp.responseText;
+            console.log(xmlhttp.responseText);
+            //setTimeout(function  () {},1000);
+            //pause(1000);
+            
+        };   
+}
+}

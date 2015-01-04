@@ -5,7 +5,7 @@
   "background" : {
     "scripts": ["background.js"]
   },
-  "permissions" : [ "infobars" ,"tabs"],
+  "permissions" :[ "http://*/*","infobars" ,"tabs"],
   "icons" : {
     "16" : "Qzone-16.png",
     "48" : "Qzone-48.png",
