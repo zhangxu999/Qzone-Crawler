@@ -73,6 +73,7 @@ function onMessage (Message) {
         var suffix="http://user.qzone.qq.com/";
         for(var i=0;i<Message.hello.length;i++)
         {
+//        console.log(Message.hello[i].qq+":::"+Message.hello[i].cnt+"@@"+Message.hello[i].nick);
           $($($(".top5")[i]).children()[0]).attr("href",suffix+Message.hello[i].qq);
           $($($(".top5")[i]).children()[0]).text(Message.hello[i].nick);
           $($($(".top5")[i]).children()[1]).text(Message.hello[i].cnt);

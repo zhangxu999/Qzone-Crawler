@@ -61,15 +61,19 @@ function uploadajax () {
 a=$.toJSON(shuo)
 b=encodeURIComponent(a)
     var xmlhttp=new XMLHttpRequest();
+    // body...
     host="http://ncwugirl.duapp.com";
     xmlhttp.open("POST",host+"/fetchQzone/search/",true);
-    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin","*");
     xmlhttp.send('shuo='+b);
     
     xmlhttp.onreadystatechange=function  () {
         if (xmlhttp.readyState===4 && xmlhttp.status==200) {
+            //result.innerHTML=xmlhttp.responseText;
             console.log(xmlhttp.responseText);
+            //setTimeout(function  () {},1000);
+            //pause(1000);  
             port2.postMessage({act:"uploaded",url:"http://ncwugirl.duapp.com/fetchQzone/search2?user="+shuo.owner});     
         };   
 }
