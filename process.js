@@ -38,7 +38,7 @@ var shuo={
 //开始遍历，分析记录所有feed
 function init () {
 	shuo.owner=0;shuo.people=[];shuo.comment=[];shuo.feed=[];
-	var RegExp="uin=([0-9]{5,})&";
+	var RegExp="i_uin=([0-9]{5,})&";
 	shuo.owner=parseInt(getInfofromString(RegExp,document.URL));
 	shuo.people[shuo.people.length]=shuo.owner;
 	for (var i = 0; i < $(feeds).children().length; i++) {
@@ -173,7 +173,7 @@ function getInfofromString (Re,string) {
 	}
 }
 else
-	return null;
+	return ' ';
 	// body...
 }
 //从字符串中获取日期，时间
@@ -209,7 +209,7 @@ if(year)
 Time.setYear(year);
 
 if (month)
-Time.setMonth(month)
+Time.setMonth(month-1)
 
 if (date)
 Time.setDate(date);
@@ -218,6 +218,8 @@ Time.setHours(hours);
 
 Time.setMinutes(minutes);
 //console.log(Time);
+Time.setSeconds(0);
+Time.setMilliseconds(0);
 return Time;
 }
 //获取，评论，赞的数目;从URL中获取一个QQ号

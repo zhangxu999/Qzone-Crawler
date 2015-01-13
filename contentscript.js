@@ -38,83 +38,39 @@ function onMessage (Message) {
 	 //	console.log("@@@@@@@@@@upload");
     break;
     case "getMost":
-    var result=analaysis();
-    var most=[];
-    for(var i=0;i<10;i++)
-    {
-      var nick=getNick(result[result.length-i-2].qq);
-      most[i]={
-                qq:result[result.length-i-2].qq,
-                cnt:result[result.length-i-2].cnt,
-                nick:nick
-              };
-    }
+        var result=analaysis();
+        var most=[];
+        for(var i=0;i<10;i++)
+        {
+          var nick=getNick(result[result.length-i-2].qq);
+          most[i]={
+                    qq:result[result.length-i-2].qq,
+                    cnt:result[result.length-i-2].cnt,
+                    nick:nick
+                  };
+        }
     port2.postMessage({hello:most,act:"tellMost"});
     break;
-    
-
-	 };
-	// body...
+    case "upload":
+    uploadajax();
+    break;
+	}// body...
 }
-// 用于上传数据的暂时用不到
-function upload () {
-//	console.log("@@@@@@@@in upLoad");
-	//var Json=$.toJSON(shuo);
-    Json='ssssssswww';
-	$.ajax({
-    url: "http://127.0.0.1:8000/fetchQzone/search/",
- 
-    // the name of the callback parameter, as specified by the YQL service
- 	//jsonp:callbac,
-    // tell jQuery we're expecting JSONP
-    dataType: "jsonp",
- 	type:"POST",
-    // tell YQL what we want and that we want JSON
-    data: {
-        shuo:Json,
-        format: "json"
-    },
- 
-    // work with the response
-    success: function( response ) {
-    //       console.log("success"); // server response
-    },
-    error: function( xhr, status, errorThrown ) {
-        console.log( "Sorry, there was a problem!" );
-        console.log( "Error: " + errorThrown );
-        console.log( "Status: " + status );
-        console.dir( xhr );
-    },
-    complete: function( xhr, status ) {
-       console.log( "The request is complete!" );
-    }
-});
-	// body...
-}
-function  callbac (argument) {
-    // body...
-    console.log('callbac.had callback')
-}
-
 
 function uploadajax () {
 a=$.toJSON(shuo)
 b=encodeURIComponent(a)
     var xmlhttp=new XMLHttpRequest();
-    // body...
- 
-    xmlhttp.open("POST","http://ncwugirl.duapp.com/fetchQzone/search/",true);
-   xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    host="http://ncwugirl.duapp.com";
+    xmlhttp.open("POST",host+"/fetchQzone/search/",true);
+    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin","*");
     xmlhttp.send('shuo='+b);
     
     xmlhttp.onreadystatechange=function  () {
         if (xmlhttp.readyState===4 && xmlhttp.status==200) {
-            //result.innerHTML=xmlhttp.responseText;
             console.log(xmlhttp.responseText);
-            //setTimeout(function  () {},1000);
-            //pause(1000);
-            
+            port2.postMessage({act:"uploaded",url:"http://ncwugirl.duapp.com/fetchQzone/search2?user="+shuo.owner});     
         };   
 }
 }

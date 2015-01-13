@@ -1,7 +1,7 @@
 {
-  "name" : "SandwichBar",
+  "name" : "fetchQzone",
   "version" : "1.0.1",
-  "description" : "MessageMessageMessageMessageMessageMessageMessage'",
+  "description" : "再造一个空间。这是一个抓取QQ空间说说及评论的插件，可以上传到网上'",
   "background" : {
     "scripts": ["background.js"]
   },

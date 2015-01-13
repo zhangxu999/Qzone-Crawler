@@ -1,3 +1,4 @@
+
 var tabID,port;
 var tabinfo={active:true,currentWindow:true};
 //发送建立连接请求，并监听消息响应
@@ -13,6 +14,7 @@ chrome.tabs.query(tabinfo,function(tabs){
 //console.log("infobar connect establish...");
 $(".top5").hide();
 $(".desc").hide();
+$("#uploaded").hide();
 //处理按钮的点击
 function click(e) {
   console.log(' button was clicked');
@@ -30,6 +32,12 @@ function click(e) {
       $("#getMost").text("正在分析TA的关系......");
       console.log("getMost");
       break;
+    case "upload":
+      port.postMessage({act:"upload"});
+      $("#upload").text("正在上传");
+      $("#uploaded").hide();
+      console.log("upload data");
+      break;
 
   }
  
@@ -42,6 +50,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var getMost=document.getElementById('getMost');
   getMost.addEventListener('click',click);
   console.log("button addEventListener");
+  var upload=document.getElementById('upload');
+  upload.addEventListener('click',click);
 });
 //接收contentScript发送的信息，并处理
 function onMessage (Message) {
@@ -63,11 +73,15 @@ function onMessage (Message) {
         var suffix="http://user.qzone.qq.com/";
         for(var i=0;i<Message.hello.length;i++)
         {
-//        console.log(Message.hello[i].qq+":::"+Message.hello[i].cnt+"@@"+Message.hello[i].nick);
           $($($(".top5")[i]).children()[0]).attr("href",suffix+Message.hello[i].qq);
           $($($(".top5")[i]).children()[0]).text(Message.hello[i].nick);
           $($($(".top5")[i]).children()[1]).text(Message.hello[i].cnt);
         }
-        break;     
+        break;
+      case "uploaded":
+      $("#upload").text("上传分析");
+      $("#uploaded").attr("href",Message.url);
+      $("#uploaded").show();
+      break;     
   }
 }
