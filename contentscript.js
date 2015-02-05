@@ -78,3 +78,23 @@ b=encodeURIComponent(a)
         };   
 }
 }
+/*
+var links;
+var i;
+function initLinks (argument) {
+    // body...
+    links=$(".comments-list-more").find("a");
+    i=0;
+}
+
+function  unfolderAll (val) {
+    // body...
+    links[i].click();
+    if (links[i+1]) {
+
+        i++;
+        setTimeout(unfolderAll(links[i]),300);
+    };
+    
+}
+*/

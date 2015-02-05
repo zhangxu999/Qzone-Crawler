@@ -29,11 +29,13 @@ var comment=
 			time:time,
 			info:info
 		};
+var nick={};
 var shuo={
 			owner:qq,
 			people:[],
 			feed:[],
 			comment:[],
+			nick:nick
 		};
 //开始遍历，分析记录所有feed
 function init () {
@@ -44,6 +46,8 @@ function init () {
 	for (var i = 0; i < $(feeds).children().length; i++) {
 	processSingleFeed($(feeds).children()[i]);
 };
+	//获取所有昵称
+    getQQandNick();
 }
 //处理单个说说
 function processSingleFeed (feedSingle) {
@@ -104,6 +108,7 @@ function processsingleComment (comment,feedID,IDinFeed,rootID,rootqq) {
 					else if (Links.length>1)
 						to=getNumfromString($(Links[1]).attr("href"));
 				}
+/*
 if (Links) {
 	switch(Links.length)
 	{
@@ -119,9 +124,15 @@ if (Links) {
 else
 {
 //			console.log("urlfrom:"+"@@:"+"@@"+null);
-}
-			(Links.length>1)?$(Links[1]).after("<sss></sss>"):$(Links[0]).after("<sss></sss>")
-			$(timeDiv).before("<sss></sss>");
+}			//	
+*/
+			//检查是否需要插入"<sss>"标签
+			if(!content.find("sss").length)
+			{
+				(Links.length>1)?$(Links[1]).after("<sss></sss>"):$(Links[0]).after("<sss></sss>")
+				$(timeDiv).before("<sss></sss>");
+			}
+			//将QQ号放入库中。
 			if (!qqinPeople(from,shuo.people))
 			{
 				shuo.people[shuo.people.length]=from;
@@ -150,6 +161,17 @@ shuo.comment[shuo.comment.length]=comment;
 	// body...
 }
 
+//获取QQ及其昵称，
+function getQQandNick () {
+	// body...
+	allNicks=$(".c_tx.q_namecard");
+	for (var i = 0; i < allNicks.length; i++) {
+		var qq=getNumfromString (allNicks[i].href);
+		var content=allNicks[i].textContent;
+		nick[qq]=content;
+	};
+
+}
 //从字符串中，说说文本中获取有效评论内容
 function getInfofromString (Re,string) {
 	if (Re==null||string==null) {return;};
