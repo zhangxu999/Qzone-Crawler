@@ -18,7 +18,7 @@
          "*://*.qzone.qq.com/*"
          //"https://*/*"
          ],
-      "js" : [ "contentscript.js" ,"jquery.min.js","jquery.json-2.4.min.js","process.js"],
+      "js" : ["jquery.min.js", "jquery.json-2.4.min.js","infobar.js","contentscript.js" ,"process.js"],
       "run_at" : "document_end",
        "all_frames" : true
     }

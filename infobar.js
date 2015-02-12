@@ -24,7 +24,7 @@ function click(e) {
   {
   	case "reDect":
   		port.postMessage({act:"getPackage"});
-      $("#reDect").text("正在检测说说和评论数量......");
+      $("#reDect").text("正在检测说说和评论量......");
   		console.log("infobar send a message");
   		break;
     case "getMost":

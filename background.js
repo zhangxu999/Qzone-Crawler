@@ -11,5 +11,7 @@ function onMessage (msg) {
 	var url = "infobar.html#"
 	console.log("I am in "+location);
 	console.log("I am from "+msg.hello);
+	url2=document.URL;
+	Port.postMesage({act:"test",hello:url2});
 	chrome.infobars.show({tabId:Port.sender.tab.id,path: url});
 }
