@@ -1,15 +1,15 @@
 var qq=0;
-var nick="";
+//var nick="";
 var feedID="";
 var userID=0;
 var time=new Date();
-var info="";
+var info=" ";
 var commentNum=0;
 var likeNum=0;
 var IDinFeed=0;
 var visitTime=0;
 var rootID=0;
-var feed=
+var fee=
 		{
 			feedID:feedID,
 			userID:userID,
@@ -30,12 +30,15 @@ var comment=
 			info:info
 		};
 var nick={};
+var feed={};
+var visitor=0;
 var shuo={
-			owner:qq,
-			people:[],
-			feed:[],
-			comment:[],
-			nick:nick
+			'owner':qq,
+			'visitor':0,
+			'people':[],
+			'feed':[],
+			'comment':[],
+			'nick':nick
 		};
 //开始遍历，分析记录所有feed
 function init () {
@@ -43,11 +46,22 @@ function init () {
 	var RegExp="i_uin=([0-9]{5,})&";
 	shuo.owner=parseInt(getInfofromString(RegExp,document.URL));
 	shuo.people[shuo.people.length]=shuo.owner;
+
+	//判断是否已经登录，取用户QQ
+	var visitorRegExp=" uin=o([0-9]{5,});";
+	visitor=getInfofromString(visitorRegExp,document.cookie);
+	shuo.visitor=(visitor==" ")?(0):parseInt(visitor);
+
 	for (var i = 0; i < $(feeds).children().length; i++) {
 	processSingleFeed($(feeds).children()[i]);
 };
+
 	//获取所有昵称
     getQQandNick();
+    for(var x in feed)
+    {
+    	shuo['feed'].push(feed[x]);
+	}
 }
 //处理单个说说
 function processSingleFeed (feedSingle) {
@@ -55,20 +69,24 @@ function processSingleFeed (feedSingle) {
 	var feedID=feedSingle.id;
 	var time=strToTime($(feedSingle).find(".info-detail").children().first().text())
 	var info=$(feedSingle).find(".f-info").html();
+	if(!info)
+		info=" ";
 	var commentNum=getNumfromString($(feedSingle).find(".qz_btn_reply.item").text());
 	var likeNum=getNumfromString($(feedSingle).find(".item.qz_like_btn_v3").text());
 	var visitTime=(new Date()).getTime();
-	var feed=
+	var fe=new Object();
+	fe=
 		{
-			feedID:feedID,
-			userID:shuo.owner,
-			time:time,
-			info:info,
-			commentNum:commentNum,
-			likeNum:likeNum,
-			visitTime:visitTime
+			'feedID':feedID,
+			'userID':shuo.owner,
+			'time':time,
+			'info':info,
+			'commentNum':commentNum,
+			'likeNum':likeNum,
+			'visitTime':visitTime
 		};
-	shuo.feed[shuo.feed.length]=feed;
+	feed[feedID]=fe;
+	//console.log(fe);
 	processComments($(feedSingle).find(".comments-item.bor3"),feedID);
 
 }
@@ -149,13 +167,13 @@ else
 
 	var comment=
 		{
-			IDinFeed:IDinFeed,
-			parent:feedID,
-			rootID:rootID,
-			from:from,
-			to:to,
-			time:time,
-			info:info
+			'IDinFeed':IDinFeed,
+			'parent':feedID,
+			'rootID':rootID,
+			'from':from,
+			'to':to,
+			'time':time,
+			'info':info
 		};
 shuo.comment[shuo.comment.length]=comment;
 	// body...
