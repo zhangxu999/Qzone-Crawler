@@ -10,7 +10,7 @@ var contentPort=chrome.runtime.connect({name:"knock"});
     contentPort.onMessage.addListener(onMessage);
     chrome.runtime.onConnect.addListener(function  (port) {
         backgroundPort=port;
-//  console.log(port.name);
+    console.log(backgroundPort.name);
 //此处回调函数不是这个文件的onMessage.是在插件环境中的onMessage函数
     backgroundPort.onMessage.addListener(onMessage);
     var location="contentscript";
@@ -30,6 +30,7 @@ if (feeds)
 
 function showInfobar () {
     // body...
+    console.log("showInfobar"+document.URL);
     $(".top-fix-bar").css("height","110px");
     $(".top-fix-inner").css("height","110px");
     $(".top-fix-container").css("height","110px");

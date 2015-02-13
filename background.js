@@ -1,6 +1,4 @@
 var contentPort;
-var backgroundPort=chrome.runtime.connect({name:"bgport"});
-backgroundPort.onMessage.addListener(onMessage);
 
 
 var tabID,backgroundPort,contentPort;
@@ -13,7 +11,7 @@ chrome.tabs.query(tabinfo,function(tabs){
 	backgroundPort=chrome.tabs.connect(tabID,{name:"background"});
 	backgroundPort.onMessage.addListener(onMessage);
 	console.log(" background tab query");
-	//backgroundPort.postMessage({act:"getPackage"});
+	backgroundPort.postMessage({act:"getPackage",hello:"in background port"});
 });
 
 //得到content端port
@@ -27,7 +25,7 @@ chrome.runtime.onConnect.addListener(function  (port) {
 function onMessage (msg) {
 	var location="background";
 	var url = "infobar.html#";
-	console.log(msg.hello);
+	console.log(msg.act+"   :"+msg.hello);
 	
 	Port.postMessage({act:"test",hello:"from background"});
 	chrome.infobars.show({tabId:Port.sender.tab.id,path: url});
