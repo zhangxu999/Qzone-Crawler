@@ -2,6 +2,7 @@
 var tabID,port;
 var tabinfo={active:true,currentWindow:true};
 //发送建立连接请求，并监听消息响应
+/*
 chrome.tabs.query(tabinfo,function(tabs){
 	console.log("active tab:"+tabs[0].id+" length:  "+tabs.length);
 	tabID=tabs[0].id;
@@ -10,7 +11,7 @@ chrome.tabs.query(tabinfo,function(tabs){
 	console.log("port connect ,addListener");
 	port.postMessage({act:"getPackage"});
 });
-
+*/
 //console.log("infobar connect establish...");
 $(".top5").hide();
 $(".desc").hide();
@@ -43,6 +44,7 @@ function click(e) {
  
 };
 //为重新检测绑定监听器
+/*
 document.addEventListener('DOMContentLoaded', function () {
   console.log('DOMContentLoaded');
   var reDect=document.getElementById("reDect");
@@ -53,6 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var upload=document.getElementById('upload');
   upload.addEventListener('click',click);
 });
+*/
 //接收contentScript发送的信息，并处理
 function onMessage (Message) {
 	switch (Message.act)

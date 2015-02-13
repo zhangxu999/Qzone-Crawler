@@ -1,27 +1,31 @@
-var feeds=document.getElementById('host_home_feeds');
+//var feeddoc=$(window.frames["QM_Feeds_Iframe"].document);
+var feeds=$(document).find('#host_home_feeds');
 var infobarHtml='<div id="wrap">    <em id="owner">A</em>共发了<em id="count">X</em> 条说说，    收获<em id="comment">Y</em>条评论,有<em id="people">P</em>个朋友。    <button id="reDect" >        重新检测说说和评论    </button>    <button id="getMost" >        看看谁和TA最亲密？    </button>    <button id="upload" >        上传分析    </button>    <a id="uploaded" href="" target="_blank">        查看TA的说说详情    </a>    <div class="desc">        <div>QQ:</div><div>互动次数:</div>    </div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div id="hide" style="height:10px;width:10px">×</div></div>'
 var infobarStyle='<style>#wrap {height: 40px;background-color: #E9E9E9}.top5{display: inline-block;}.desc{display: inline-block;}#uploaded{display: inline-block;}{display: inline-block;}em {font-weight: bold;font-style: normal;}</style>'
 showInfobar();
+
+////得到content端port
 var contentPort=chrome.runtime.connect({name:"knock"});
 //  console.log("knock was established");
     contentPort.onMessage.addListener(onMessage);
+    chrome.runtime.onConnect.addListener(function  (port) {
+        backgroundPort=port;
+//  console.log(port.name);
+//此处回调函数不是这个文件的onMessage.是在插件环境中的onMessage函数
+    backgroundPort.onMessage.addListener(onMessage);
+    var location="contentscript";
+//  console.log(port.name+"come in,");
+        // body...
+    });
 //判断是否有我们需要分析的内容
 if (feeds) 
 {
-	
+	url2=document.URL;
 //	console.log("port1 addListener");
-	contentPort.postMessage({hello:"contentscript"});
-    showInfobar();
+	contentPort.postMessage({act:"test",hello:url2});
+    //showInfobar();
 //	console.log("port1 send Message")
-	chrome.runtime.onConnect.addListener(function  (port) {
-		backgroundPort=port;
-//	console.log(port.name);
-//此处回调函数不是这个文件的onMessage.是在插件环境中的onMessage函数
-	backgroundPort.onMessage.addListener(onMessage);
-	var location="contentscript";
-//	console.log(port.name+"come in,");
-		// body...
-	});
+	
 }
 
 function showInfobar () {
@@ -73,6 +77,7 @@ function onMessage (Message) {
     break;
     case "test":
     console.log(Message.hello);
+    break;
 	}// body...
 }
 
