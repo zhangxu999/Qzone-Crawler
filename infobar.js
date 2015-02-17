@@ -62,12 +62,7 @@ function onMessage (Message) {
   {
     //请求说说基本信息
     case "tellPackage":
-        $("#count").text(Message.feeds);
-        $("#comment").text(Message.comments);
-        $("#owner").text(Message.nick);
-        $("#people").text(Message.people);
-        $("#reDect").text("重新检测");
-        break;
+        
         //得到所有关于关系的分析
     case  "tellMost":
         $("#getMost").text("重新分析亲密关系");
