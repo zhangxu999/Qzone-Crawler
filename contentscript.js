@@ -1,10 +1,9 @@
 //var feeddoc=$(window.frames["QM_Feeds_Iframe"].document);
-//var feeds=$(document).find('#host_home_feeds');
+var feeds=$(document).find('#host_home_feeds');
 var contentPort=chrome.runtime.connect({name:document.URL});
     contentPort.onMessage.addListener(onMessage);
-    var feeddoc;
-    var feeds;
-checkfeeds2();
+    //checkfeeds2();
+/*
     function checkfeeds (argument) {
 
         try
@@ -34,6 +33,7 @@ checkfeeds2();
         
 
     };
+
     function checkfeeds2 () {
         // body...
         console.log(window.frames["QM_Feeds_Iframe"].document);
@@ -58,6 +58,7 @@ checkfeeds2();
             // body...
         });
     }
+    */
 ////得到content端port
 
 //  console.log("knock was established");
@@ -74,7 +75,7 @@ checkfeeds2();
     });
 */
 //判断是否有我们需要分析的内容
-if(false)
+if(feeds)
 //if (feeds) 
 {
 	contentPort.postMessage({act:"finddatatoshow",data:getoverview()});	
@@ -136,6 +137,12 @@ function onMessage (Message) {
     case "test":
     console.log(Message.hello+"  "+document.URL);
     break;
+    case "finddatatoshow":
+    showInfobar();
+    $("#count").text(Message.data.feeds);
+    $("#comment").text(Message.data.comments);
+    $("#owner").text(Message.data.nick);
+    $("#people").text(Message.data.people);
 	}// body...
 }
 
@@ -199,16 +206,18 @@ function reDect (argument) {
 function getoverview () {
     console.log("getoverview");
     init();
-    Message={
+    data={
              nick:getNick(shuo.owner),
              comments:shuo.comment.length,
              owner:shuo.owner,
              feeds:shuo.feed.length,
              people:shuo.people.length
            };
+           /*
     $("#count").text(Message.feeds);
             $("#comment").text(Message.comments);
             $("#owner").text(Message.nick);
             $("#people").text(Message.people);
-    return;
+            */
+    return data;
 }

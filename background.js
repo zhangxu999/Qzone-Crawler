@@ -2,7 +2,7 @@ var bgPorts={};
 var tabID,currentPort;
 var tabinfo={active:true,currentWindow:true};
 //发送建立连接请求，并监听消息响应
-//得到content 端port
+//得到current 端port
 function getcurrenttab () {
 	// body...
 	chrome.tabs.query(tabinfo,function(tabs){
@@ -30,15 +30,16 @@ chrome.runtime.onConnect.addListener(function  (port) {
 function onMessage (msg, port) {
 	console.log(msg.act+"   :"+msg.hello);
 	console.log(port.portId_);
-	bgPorts[port.portId_].postMessage({act:"test",hello:"from background"+port.portId_});
+	//bgPorts[port.portId_].postMessage({act:"test",hello:"from background"+port.portId_});
 	//background.postMessage({act:"test",hello:"from background"});
-	chrome.infobars.show({tabId:port.sender.tab.id,path: url});
+	//chrome.infobars.show({tabId:port.sender.tab.id,path: url});
 	switch (msg.act)
 	{
 		case "finddatatoshow":
+		console.log("log --bkg  : finddatatoshow ")
 			getcurrenttab();
 
-			currentPort.postMessage({act:"showinfovar",data:""});
+			currentPort.postMessage({act:"showinfobar",data:msg.data});
 		case "reDect":
 
      
