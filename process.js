@@ -186,6 +186,7 @@ function getQQandNick () {
 	for (var i = 0; i < allNicks.length; i++) {
 		var qq=getNumfromString (allNicks[i].href);
 		var content=allNicks[i].textContent;
+		content=((content[0]=="@")?content.slice(1):content);
 		nick[qq]=content;
 	};
 
