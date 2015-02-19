@@ -186,6 +186,7 @@ function getQQandNick () {
 	for (var i = 0; i < allNicks.length; i++) {
 		var qq=getNumfromString (allNicks[i].href);
 		var content=allNicks[i].textContent;
+		content=((content[0]=="@")?content.slice(1):content);
 		nick[qq]=content;
 	};
 
@@ -381,13 +382,4 @@ for(var i=0;i<$(feeds).children().length;i++)
 	}
 }
 }
-//返回infobar 所需要的关于所有说说所需要的内容
-function getPackage () {
-	init();
-	return {
-	 		 comments:shuo.comment.length,
-	 		 owner:shuo.owner,
-	 		 feeds:shuo.feed.length,
-	 		 people:shuo.people.length
-		   };
-}
+
