@@ -155,6 +155,7 @@ function onMessage (Message) {
         case "finddatatoshow":
             console.log("onMessage in "+document.URL);
             showInfobar();
+            
             $("#count").text(Message.data.feeds);
             $("#comment").text(Message.data.comments);
             $("#owner").text(Message.data.nick);
@@ -201,7 +202,7 @@ function uploadajax () {
 a=$.toJSON(shuo)
 b=encodeURIComponent(a)
     var xmlhttp=new XMLHttpRequest();
-    var host="http://127.0.0.1:8000";
+    var host="http://fqzone.duapp.com";
     xmlhttp.open("POST",host+"/fetchQzone/search/",true);
    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin","*");
