@@ -91,14 +91,18 @@ else
 
 
 function showInfobar () {
-
-    var infobarHtml='<div id="wrap">    <em id="owner">A</em>共发了<em id="count">X</em> 条说说，    收获<em id="comment">Y</em>条评论,有<em id="people">P</em>个朋友。    <button id="reDect"  >        重新检测说说和评论    </button>    <button id="getMost" >        看看谁和TA最亲密？    </button>    <button id="upload" >        上传分析    </button>    <a id="uploaded" href="" target="_blank">        查看TA的说说详情    </a>    <div class="desc">        <div>QQ:</div><div>互动次数:</div>    </div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div class="top5"><a  href="" target="_blank" >x</a><div>count</div></div>    <div id="hide" style="height:10px;width:10px">×</div></div>';
-    var infobarStyle='<style>#wrap {height: 40px;background-color: }.top5{display: inline-block;}.desc{display: inline-block;}#uploaded{display: inline-block;}{display: inline-block;}em {font-weight: bold;font-style: normal;}</style>';
+    console.log("wrap")
+    console.log($("wrap"))
+    if($("#wrap").length){return false;};    
+    console.log("ssddfd'");
+    var infobarHtml='<div id="wrap">    <em id="owner">A</em>共发了<em id="count">X</em> 条说说，    收获<em id="comment">Y</em>条评论,有<em id="people">P</em>个朋友。    <button id="reDect"  >        重新检测说说和评论    </button>    <button id="getMost" >        看看谁和TA最亲密？    </button>    <button id="upload" >        上传分析    </button>    <a id="uploaded" href="" target="_blank">        查看TA的说说详情    </a>    <div class="desc">        <div>QQ:</div><div>互动次数:</div>    </div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div class="top5"><a  href="" target="_blank" ></a><div></div></div>    <div id="hide" style="height:10px;width:10px">×</div></div>';
+    var infobarStyle='<style>#wrap {height: 40p;background-color: }.top5{display: inline-block;}.desc{display: inline-block;}#uploaded{display: inline-block;}{display: inline-block;}em {font-weight: bold;font-style: normal;}</style>';
     $(".top-fix-bar").css("height","110px");
     $(".top-fix-inner").css("height","110px");
     $(".top-fix-container").css("height","110px");
     $("head").append(infobarStyle);
     $(".top-fix-container").prepend(infobarHtml);
+    
     var reDectvar=document.getElementById("reDect");
     console.log(reDectvar);
   reDectvar.addEventListener('click', reDect);
@@ -152,15 +156,7 @@ function onMessage (Message) {
     else
         switch (Message.act)
     {
-        case "finddatatoshow":
-            console.log("onMessage in "+document.URL);
-            showInfobar();
-            
-            $("#count").text(Message.data.feeds);
-            $("#comment").text(Message.data.comments);
-            $("#owner").text(Message.data.nick);
-            $("#people").text(Message.data.people);
-            break;
+        
         case "reDect":
             
             $("#count").text(Message.data.feeds);
@@ -169,6 +165,15 @@ function onMessage (Message) {
             $("#people").text(Message.data.people);
             $("#reDect").text("重新检测");
             break;
+    case "finddatatoshow":
+            console.log("onMessage in "+document.URL);
+            showInfobar();
+            console.log("after show inbar");
+            $("#count").text(Message.data.feeds);
+            $("#comment").text(Message.data.comments);
+            $("#owner").text(Message.data.nick);
+            $("#people").text(Message.data.people);
+           // break;
     case "getTop":
             $("#getMost").text("重新分析亲密关系");
             $(".top5").show();
@@ -194,7 +199,7 @@ function onMessage (Message) {
 
 
 //内容上传函数
-var local="htp://127.0.0.1:8000";
+var local="http://127.0.0.1:8000";
 var remote="http://ncwugirl.duapp.com"
 var host=local;
 function uploadajax () {
@@ -203,7 +208,7 @@ a=$.toJSON(shuo)
 b=encodeURIComponent(a)
     var xmlhttp=new XMLHttpRequest();
     var host="http://fqzone.duapp.com";
-    xmlhttp.open("POST",host+"/fetchQzone/search/",true);
+    xmlhttp.open("POST",local+"/fetchQzone/search/",true);
    xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
     xmlhttp.setRequestHeader("Access-Control-Allow-Origin","*");
     xmlhttp.send('shuo='+b);

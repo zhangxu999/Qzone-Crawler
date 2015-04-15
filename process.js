@@ -68,7 +68,8 @@ function processSingleFeed (feedSingle) {
 	if (!feedSingle) {return;};
 	var feedID=feedSingle.id;
 	var time=strToTime($(feedSingle).find(".info-detail").children().first().text())
-	var info=$(feedSingle).find(".f-info").html();
+	var info=$(feedSingle).find(".f-info").html()+"<br>";
+		info+=$(feedSingle).find(".txt-box").html();
 	if(!info)
 		info=" ";
 	var commentNum=getNumfromString($(feedSingle).find(".qz_btn_reply.item").text());
