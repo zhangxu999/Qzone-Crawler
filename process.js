@@ -73,7 +73,8 @@ function processSingleFeed (feedSingle) {
 		info=" ";
 	var commentNum=getNumfromString($(feedSingle).find(".qz_btn_reply.item").text());
 	var likeNum=getNumfromString($(feedSingle).find(".item.qz_like_btn_v3").text());
-	var visitTime=(new Date()).getTime();
+	var now=new Date();
+	var visitTime=packageTime(now.getFullYear(),(now.getMonth()+1),now.getDate(),now.getHours(),now.getMinutes())
 	var fe=new Object();
 	fe=
 		{
@@ -219,48 +220,66 @@ else
 }
 //从字符串中获取日期，时间
 function strToTime (string) {
-	if (!string) {return -8888;};
+	if (!string) {return "NULL";};
 	var pa=new RegExp("[0-9]{1,}","g");
 	var timeArray=string.match(pa);
-	var daymillisec=86400000;
+//	var daymillisec=86400000;
 	var time=new Date();
+
 	switch(timeArray.length)
 	{   
 		case 2:
 			//这里的昨可能会不兼容，编辑器是utf-8 可浏览器是Unicode
 			if (letterInWord("昨",string)) 
-				time.setTime(time.getTime()-daymillisec);
-			if (letterInWord("前",string)) 
-				time.setTime(time.getTime()-daymillisec*2);
-				time=packageTime(time,null,null,null,timeArray[0],timeArray[1]);
+         	//time.setTime(time.getTime()-daymillisec);
+			timestamp=packageTime(time.getFullYear(),time.getMonth()+1,time.getDate()-1,timeArray[0],timeArray[1]);
+			else if (letterInWord("前",string)) 
+				//time.setTime(time.getTime()-daymillisec*2);
+				timestamp=packageTime(time.getFullYear(),time.getMonth()+1,time.getDate()-2,timeArray[0],timeArray[1]);
+			else
+			timestamp=packageTime(time.getFullYear(),time.getMonth()+1,time.getDate(),timeArray[0],timeArray[1]);	
 			break;
 		case 4:
-			time=packageTime(time,null,timeArray[0],timeArray[1],timeArray[2],timeArray[3]);
+			timestamp=packageTime(time.getFullYear(),timeArray[0],timeArray[1],timeArray[2],timeArray[3]);
 			break;
 		case 5:
-			time=packageTime(time,timeArray[0],timeArray[1],timeArray[2],timeArray[3],timeArray[4]);
+			timestamp=packageTime(timeArray[0],timeArray[1],timeArray[2],timeArray[3],timeArray[4]);
 			break;
 		default :
 	}
-	return time.getTime();
+	return timestamp;
 }
 // 组装时间对象
-function packageTime(Time,year,month,date,hours,minutes){
+function packageTime(year,month,date,hours,minutes){
+	//timestamp=""
+/*
 if(year)
-Time.setYear(year);
-
+//Time.setYear(year);
+	timestamp+=(year+"-");
+else
+	timestamp+=(Time.getFullYear()+"-");
 if (month)
-Time.setMonth(month-1)
+//Time.setMonth(month-1)
+	timestamp+=(month+"-");
+else
+	timestamp+=((Time.getMonth()+1)+"-")
 if (date)
-Time.setDate(date);
+	timestamp+=(date+" ");
+else
+	timestamp+=(time.getDate()+" ");
 
-Time.setHours(hours);
+timestamp+=(hours+":"+minutes+":00");
+//Time.setDate(date);
 
-Time.setMinutes(minutes);
+//Time.setHours(hours);
+
+//Time.setMinutes(minutes);
 //console.log(Time);
-Time.setSeconds(0);
-Time.setMilliseconds(0);
-return Time;
+//Time.setSeconds(0);
+//Time.setMilliseconds(0);
+return timestamp;
+*/
+return  year+"-"+month+"-"+date+" "+hours+":"+minutes+":00"
 }
 //获取，评论，赞的数目;从URL中获取一个QQ号
 function getNumfromString (string) {
