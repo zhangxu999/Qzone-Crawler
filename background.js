@@ -1,3 +1,4 @@
+
  var outterPort,innerPort;
 var tabID,currentPort;
 var tabinfo={active:true,currentWindow:true};
