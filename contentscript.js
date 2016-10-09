@@ -1,3 +1,4 @@
+
 //var feeddoc=$(window.frames["QM_Feeds_Iframe"].document);
 var feeds=$(document).find('#host_home_feeds');
 var from="outter";

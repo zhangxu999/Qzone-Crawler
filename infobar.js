@@ -1,4 +1,5 @@
 
+
 var tabID,port;
 var tabinfo={active:true,currentWindow:true};
 //发送建立连接请求，并监听消息响应
