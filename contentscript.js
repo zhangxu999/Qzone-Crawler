@@ -223,7 +223,7 @@ b=encodeURIComponent(a)
         //    $("#upload").text("上传分析");
       $//("#uploaded").attr("href",Message.data);
       //$("#uploaded").show();
-      var url="http://ncwugirl.duapp.com/fetchQzone/search2?user="+shuo.owner;
+      var url="http://127.0.0.1:8000/fetchQzone/?user="+shuo.owner;
       contentPort.postMessage({act:"upload",data:url,from: "inner"});
         }
         else
