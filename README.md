@@ -28,7 +28,6 @@ Qzone-Crawler
 
 ------------------------------------------
 **PS：**
------2014/01/13更新---------
-已经做好线上版本，请查看:[https://github.com/zhangxu999/fetchQzone](https://github.com/zhangxu999/fetchQzone)
+线上版本，查看:[https://github.com/zhangxu999/fetchQzone](https://github.com/zhangxu999/fetchQzone)
 
 说说,评论分析的框架写好了。离线分析最亲密的人，把数据上传到指定的url,，已经添加数据上传模块(fetchQzone项目)，这样只要用的人多了就能够分析出一个人在QQ空间的评论赞同足迹。
