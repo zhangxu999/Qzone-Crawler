@@ -56,6 +56,7 @@ function init () {
 	processSingleFeed($(feeds).children()[i]);
 };
 
+
 	//获取所有昵称
     getQQandNick();
     for(var x in feed)
